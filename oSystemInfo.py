@@ -46,7 +46,10 @@ class cSystemInfo(object):
   @property
   def sOSReleaseId(oSelf):
     if not oSelf.__sOSReleaseId:
-      oSelf.__sOSReleaseId = fsHKLMValue(r"SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ReleaseId");
+      try:
+        oSelf.__sOSReleaseId = fsHKLMValue(r"SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ReleaseId");
+      except AssertionError:
+        oSelf.__sOSReleaseId = "0"
     return oSelf.__sOSReleaseId;
   @property
   def uReleaseId(oSelf):
